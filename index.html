@@ -4,7 +4,142 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome — Histology Lab</title>
+  <style>
+    * { box-sizing: border-box; }
 
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      color: #fff;
+      background: radial-gradient(circle at center, #0a0020, #020010 80%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    canvas#bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    /* ====== محتوى النص في الوسط ====== */
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+      animation: fadeSlideUp 1.5s ease forwards;
+      opacity: 0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px #8b5cf655;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      opacity: 0.85;
+      margin-bottom: 35px;
+    }
+
+    .enter-btn {
+      background: linear-gradient(135deg, #6d28d9, #0ea5e9);
+      color: #fff;
+      border: none;
+      padding: 14px 35px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px #6d28d955;
+    }
+
+    .enter-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px #0ea5e9aa;
+    }
+
+    /* ====== الشعار المتحرك (SVG) أكبر وأسرع ====== */
+    .bg-logo {
+      position: absolute;
+      left: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 450px; /* أكبر حجم */
+      opacity: 0.9;
+      animation: floatLogo 1.8s ease-in-out infinite alternate; /* أسرع */
+      z-index: 1;
+    }
+
+    @keyframes floatLogo {
+      0% { transform: translateY(-50%) translateX(0); }
+      50% { transform: translateY(-48%) translateX(20px); }
+      100% { transform: translateY(-52%) translateX(0); }
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo, .logo-right {
+      position: absolute;
+      top: 20px;
+      width: 100px;
+      height: auto;
+      opacity: 0;
+      transform: scale(0.6);
+      animation: fadeInScale 2s ease forwards;
+      z-index: 10;
+    }
+
+    .logo { left: 30px; animation-delay: 0.5s; filter: drop-shadow(0 0 10px #1a7ddaaa); }
+    .logo-right { right: 30px; animation-delay: 0.8s; filter: drop-shadow(0 0 10px #33159eaa); }
+
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.6); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    /* ====== تجاوب الموبايل ====== */
+    @media (max-width: 768px) {
+      body { flex-direction: column; justify-content: center; text-align: center; }
+      .bg-logo { position: static; width: 280px; margin-bottom: 25px; animation: floatLogoMobile 1.8s ease-in-out infinite alternate; }
+      @keyframes floatLogoMobile {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0); }
+      }
+      h1 { font-size: 2.2rem; }
+      p { font-size: 1rem; }
+      .enter-btn { padding: 12px 25px; font-size: 1rem; }
+    }
+  </style>
 </head>
 <body>
   <canvas id="bg"></canvas>
@@ -12,23 +147,24 @@
   <!-- SVG الخلفية -->
   <img src="logo.svg" alt="Logo" class="bg-logo" />
 
-  <h1>Histology Lab</h1>
-  <p>Explore the microscopic world with interactive.</p>
-  <button class="enter-btn" onclick="enterSite()">Enter the Lab 🔬</button>
+  <div class="content">
+    <h1>Histology Lab</h1>
+    <p>Explore the microscopic world with interactive.</p>
+    <button class="enter-btn" onclick="enterSite()">Enter the Lab 🔬</button>
+  </div>
 
   <footer>© 2025 Histology Project — YUSUF FARAAG</footer>
 
+  <img src="logo.png" alt="Section (W) Logo" class="logo">
+  <img src="logo2.png" alt="Section (W) Logo Right" class="logo-right">
+
   <script>
-    // حركة الفقاعات في الخلفية
     const canvas = document.getElementById("bg");
     const ctx = canvas.getContext("2d");
     let w, h;
     const bubbles = [];
 
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
+    function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
     window.addEventListener("resize", resize);
     resize();
 
@@ -37,7 +173,7 @@
         x: Math.random() * w,
         y: Math.random() * h,
         r: Math.random() * 20 + 5,
-        dx: (Math.random() - 0.5) * 1.2, // حركة أسرع
+        dx: (Math.random() - 0.5) * 1.2,
         dy: (Math.random() - 0.5) * 1.2,
         c: `rgba(180, 120, 255, 0.12)`
       });
@@ -50,8 +186,7 @@
         ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
         ctx.fillStyle = b.c;
         ctx.fill();
-        b.x += b.dx;
-        b.y += b.dy;
+        b.x += b.dx; b.y += b.dy;
         if (b.x < 0 || b.x > w) b.dx *= -1;
         if (b.y < 0 || b.y > h) b.dy *= -1;
       }
@@ -59,59 +194,11 @@
     }
     draw();
 
-    // دخول الموقع الرئيسي مع ترانزيشن خروج
     function enterSite() {
       document.body.style.transition = "opacity 0.8s ease";
       document.body.style.opacity = "0";
-      setTimeout(() => {
-        window.location.href = "index8.html";
-      }, 800);
+      setTimeout(() => { window.location.href = "index8.html"; }, 800);
     }
   </script>
-  <img src="logo.png" alt="Section (W) Logo" class="logo">
-<style>
-  .logo {
-  position: absolute;
-  top: 20px;
-  left: 30px;
-  width: 100px;
-  height: auto;
-  opacity: 0;
-  transform: scale(0.6);
-  animation: fadeInScale 2s ease forwards;
-  animation-delay: 0.5s;
-  z-index: 10;
-  filter: drop-shadow(0 0 10px #1a7ddaaa);
-}
-
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-</style>
-<img src="logo2.png" alt="Section (W) Logo Right" class="logo-right">
-<style>
-  .logo-right {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  width: 100px;
-  height: auto;
-  opacity: 0;
-  transform: scale(0.6);
-  animation: fadeInScale 2s ease forwards;
-  animation-delay: 0.8s; /* يدخل بعد اليسار بشوية */
-  z-index: 10;
-  filter: drop-shadow(0 0 10px #33159eaa);
-}
-
-</style>
 </body>
 </html>
