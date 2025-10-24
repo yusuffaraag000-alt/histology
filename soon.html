@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Section (W) — Coming Soon</title>
+  <style>
+    /* إعدادات عامة */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #000, #111);
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 5rem;
+      letter-spacing: 5px;
+      color: #ff69b4;
+      text-shadow: 0 0 20px #ff69b4aa, 0 0 40px #ff69b4;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: #fff;
+      margin-top: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4aa;
+      }
+      to {
+        text-shadow: 0 0 30px #ff69b4, 0 0 60px #ff1493;
+      }
+    }
+
+    /* حركة بسيطة في الخلفية */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ff69b430, transparent);
+      animation: move 10s linear infinite;
+    }
+
+    .circle:nth-child(1) {
+      width: 200px;
+      height: 200px;
+      top: 10%;
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    .circle:nth-child(2) {
+      width: 150px;
+      height: 150px;
+      bottom: 15%;
+      right: 25%;
+      animation-delay: 3s;
+    }
+
+    @keyframes move {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(30px) rotate(180deg); }
+      100% { transform: translateY(0px) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+  <h1>SOON</h1>
+  <h2>Section (W)</h2>
+</body>
+</html>

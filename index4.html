@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Large Intestine — Veterinary Histology</title>
+  <style>
+    /* ⚙️ الأساس العام */
+body {
+  background: #0e0e10;
+  color: #f0f0f0;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.8;
+  margin: 0;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 🧱 تنسيق المحتوى الأساسي */
+main {
+  max-width: 900px;
+  width: 100%;
+  background: #1a1a1d;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
+}
+
+/* ✨ العناوين */
+h1, h2, h3 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 📖 الفقرات */
+p {
+  text-align: justify;
+  margin-bottom: 18px;
+  font-size: 1rem;
+}
+
+/* 🎨 تحديد النصوص (هايلايت) */
+mark.highlight {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 4px;
+  word-wrap: break-word;
+}
+
+mark:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* 🧭 فواصل */
+hr {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 30px 0;
+  width: 100%;
+}
+
+/* 📱 استجابة الموبايل */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  main {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  mark.highlight {
+    display: block;
+    margin-bottom: 8px;
+    padding: 6px 10px;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* 📱 شاشات أصغر جدًا (موبايلات صغيرة جدًا) */
+@media (max-width: 480px) {
+  main {
+    padding: 14px;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.1rem;
+  }
+}
+
+    :root {
+      --bg: #050308;
+      --accent1: #00fff7;
+      --accent2: #6effb0;
+      --muted: #c9d6e0;
+    }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: #fff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: radial-gradient(circle at 30% 20%, #061b1b, #030408);
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+    header h1 {
+      font-size: 38px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+    header p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    #mindmap-section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    #mindmap {
+      position: relative;
+      width: 700px;
+      height: 500px;
+      margin: 60px auto;
+    }
+
+    .node {
+      position: absolute;
+      text-align: center;
+    }
+
+    /* الكروت (الأزرار) */
+    .bubble {
+      width: 160px;
+      height: 160px;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 20px rgba(0, 255, 200, 0.1),
+        inset 0 0 10px rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .bubble::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 25px;
+      background: radial-gradient(circle at 30% 30%, rgba(0,255,200,0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .bubble:hover::after {
+      opacity: 1;
+    }
+
+    .bubble:hover {
+      transform: scale(1.07);
+      box-shadow:
+        0 0 25px rgba(0, 255, 200, 0.3),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    .bubble strong {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* المواضع */
+    .pos-top {left:50%; top:10%; transform:translate(-50%,0);}
+    .pos-bl {left:25%; bottom:15%;}
+    .pos-left {right:25%; bottom:15%;}
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media(max-width:900px){
+      #mindmap {width: 100%; height: 400px;}
+      .bubble {width: 120px; height: 120px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <h1>Large Intestine — Mind Map</h1>
+    <p>Explore the main regions of the large intestine and their histological features in veterinary anatomy.</p>
+  </header>
+
+  <section id="mindmap-section">
+    <div id="mindmap">
+      <div class="node pos-top">
+        <div class="bubble" onclick="go('cecum.html')">
+          <strong>Cecum</strong>
+        </div>
+      </div>
+
+      <div class="node pos-bl">
+        <div class="bubble" onclick="go('index2.html')">
+          <strong>Colon</strong>
+        </div>
+      </div>
+
+      <div class="node pos-left">
+        <div class="bubble" onclick="go('rectum.html')">
+          <strong>Rectum</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Veterinary Histology Virtual Lab — Large Intestine Explorer
+  </footer>
+
+  <script>
+    function go(p){ window.location.href = p; }
+
+    // خلفية متحركة بكور مضيئة
+    const c = document.getElementById("bgCanvas");
+    const ctx = c.getContext("2d");
+    let w, h;
+    function resize(){
+      w = window.innerWidth; h = window.innerHeight;
+      c.width = w; c.height = h;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const balls = [];
+    for(let i=0;i<25;i++){
+      balls.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: 10+Math.random()*30,
+        dx: (Math.random()-0.5)*0.6,
+        dy: (Math.random()-0.5)*0.6,
+        alpha: 0.15+Math.random()*0.4
+      });
+    }
+
+    function animate(){
+      ctx.clearRect(0,0,w,h);
+      for(const b of balls){
+        const grad = ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);
+        grad.addColorStop(0,`rgba(0,255,200,${b.alpha})`);
+        grad.addColorStop(1,"rgba(0,255,200,0)");
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+        ctx.fill();
+
+        b.x+=b.dx; b.y+=b.dy;
+        if(b.x<-50) b.x=w+50;
+        if(b.x>w+50) b.x=-50;
+        if(b.y<-50) b.y=h+50;
+        if(b.y>h+50) b.y=-50;
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
