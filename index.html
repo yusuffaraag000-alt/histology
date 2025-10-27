@@ -202,5 +202,55 @@
       setTimeout(() => { window.location.href = "index8.html"; }, 800);
     }
   </script>
+  <footer class="footer">
+  <p>
+    3D model from 
+    <a href="https://sketchfab.com" target="_blank">Sketchfab</a>
+  </p>
+</footer>
+
+<style>
+  /* تصميم الفوتر */
+  .footer {
+    text-align: center;
+    padding: 25px 10px;
+    margin-top: 60px;
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+
+  .footer p {
+    font-size: 18px;
+    color: #ddd;
+    margin: 0;
+  }
+
+  .footer a {
+    color: #ff69b4;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+    position: relative;
+  }
+
+  /* تأثير عند مرور الماوس */
+  .footer a:hover {
+    color: #ff8fcf;
+    text-shadow: 0 0 8px #ff69b4;
+  }
+
+  /* تأثير دخول الجملة (fade-in) */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
 </body>
 </html>
